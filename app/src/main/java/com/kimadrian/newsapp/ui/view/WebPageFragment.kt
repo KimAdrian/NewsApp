@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -21,15 +22,19 @@ class WebPageFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentWebPageBinding.inflate(inflater, container, false)
 
-        //Todo: Fetch article details and load url to webView
         var url: String
         arguments.let {
             val args = WebPageFragmentArgs.fromBundle(it!!)
             url = args.url
         }
 
+        binding.progress.visibility = View.VISIBLE
         binding.webView.loadUrl(url)
-        binding.webView.webViewClient = WebViewClient()
+        binding.webView.webViewClient = object: WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                binding.progress.visibility = View.INVISIBLE
+            }
+        }
 
         activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
