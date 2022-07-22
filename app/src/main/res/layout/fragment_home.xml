@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
  <ProgressBar
      android:id="@+id/progress"
      android:layout_width="wrap_content"
@@ -19,7 +18,9 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
