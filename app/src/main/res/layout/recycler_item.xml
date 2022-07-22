@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
     android:layout_marginTop="4dp"
-    app:cardCornerRadius="8dp"
+    app:cardCornerRadius="4dp"
     android:id="@+id/newsCard">
 
     <LinearLayout
@@ -14,17 +15,43 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/description"
+
+        <ImageView
+            android:id="@+id/newsImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"/>
+            android:layout_height="150dp"
+            tools:src="@tools:sample/backgrounds/scenic"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/news_image"/>
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:paddingTop="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"/>
+
+        <TextView
+            android:id="@+id/newsSource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:paddingBottom="4dp"
+            android:textAlignment="textEnd"
+            android:layout_marginEnd="4dp"/>
 
 
 

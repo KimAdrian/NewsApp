@@ -3,16 +3,16 @@ package com.kimadrian.newsapp.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.kimadrian.newsapp.R
 import com.kimadrian.newsapp.data.model.Article
-import com.kimadrian.newsapp.data.model.NewsResponse
 import com.kimadrian.newsapp.ui.view.HomeFragmentDirections
 
 class RecyclerViewAdapter: ListAdapter<Article, NewsViewHolder>(DiffCallBack) {
@@ -23,8 +23,14 @@ class RecyclerViewAdapter: ListAdapter<Article, NewsViewHolder>(DiffCallBack) {
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val newsItem = getItem(position)
+        holder.newsSource.text = newsItem.source?.name
         holder.desc.text = newsItem.description
         holder.title.text = newsItem.title
+        Glide.with(holder.newsImage.context)
+            .load(newsItem.urlToImage)
+            .placeholder(R.drawable.loading_animation)
+            .centerCrop()
+            .into(holder.newsImage)
         holder.newsCards.setOnClickListener {
             Navigation.findNavController(it)
                 .navigate(HomeFragmentDirections
@@ -48,6 +54,8 @@ class NewsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     val desc: TextView = itemView.findViewById(R.id.description)
     val title: TextView = itemView.findViewById(R.id.title)
     val newsCards: CardView = itemView.findViewById(R.id.newsCard)
+    val newsSource: TextView = itemView.findViewById(R.id.newsSource)
+    val newsImage: ImageView = itemView.findViewById(R.id.newsImage)
 
 }
 
