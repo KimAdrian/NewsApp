@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.kimadrian.newsapp.databinding.FragmentHomeBinding
 import com.kimadrian.newsapp.ui.adapter.RecyclerViewAdapter
 import com.kimadrian.newsapp.ui.viewmodel.NewsViewModel
+import com.kimadrian.newsapp.utils.Status
 
 class HomeFragment : Fragment() {
 
@@ -24,12 +26,30 @@ class HomeFragment : Fragment() {
         val viewModel = NewsViewModel()
 
         val adapter = RecyclerViewAdapter()
-        viewModel.newsArticles.observe(viewLifecycleOwner){
-            adapter.submitList(it)
-            if (adapter.itemCount>0){
-                    binding.progress.visibility = View.INVISIBLE
-            }
 
+        viewModel.getNews().observe(viewLifecycleOwner){
+            it?.let {resource ->
+                when(resource.status){
+                    Status.SUCCESS -> {
+                        resource.data.let { newsArticles ->
+                            adapter.submitList(newsArticles)
+                            if (adapter.itemCount>0){
+                                binding.progress.visibility = View.INVISIBLE
+                            }
+                        }
+                    }
+                    Status.ERROR -> {
+                        binding.progress.visibility = View.INVISIBLE
+                        binding.errorImage.visibility = View.VISIBLE
+                        Snackbar.make(binding.root, it.message.toString(), Snackbar.LENGTH_LONG).show()
+                    }
+                    Status.LOADING -> {
+                        binding.progress.visibility = View.VISIBLE
+                    }
+
+                }
+
+            }
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)

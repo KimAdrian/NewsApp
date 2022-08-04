@@ -10,8 +10,16 @@
      android:id="@+id/progress"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:layout_centerInParent="true"
-     android:visibility="visible"/>
+     android:layout_centerInParent="true"/>
+
+    <ImageView
+        android:id="@+id/errorImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/network_error"
+        android:visibility="invisible"
+        android:contentDescription="@string/error_image" />
 
 
     <androidx.recyclerview.widget.RecyclerView

@@ -29,6 +29,7 @@ class RecyclerViewAdapter: ListAdapter<Article, NewsViewHolder>(DiffCallBack) {
         Glide.with(holder.newsImage.context)
             .load(newsItem.urlToImage)
             .placeholder(R.drawable.loading_animation)
+            .error(R.drawable.ic_broken_image)
             .centerCrop()
             .into(holder.newsImage)
         holder.newsCards.setOnClickListener {
